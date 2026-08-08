@@ -5,6 +5,7 @@
     "tailwindcss": "^4.3.3"
   },
   "dependencies": {
+    "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.18.2"
   }
 }
