@@ -4,10 +4,10 @@ import Home from "./Components/pages/Home";
 import Products from "./Components/pages/Products";
 import Cart from "./Components/pages/Cart";
 import { Toaster } from "react-hot-toast";
+import HelloBox from "./HelloBox";
 
 export default function App() {
   return (
-    
     <div className="bg-base-200 min-h-screen">
       <Toaster position="top-right" />
 
