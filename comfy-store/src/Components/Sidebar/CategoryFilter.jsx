@@ -1,21 +1,21 @@
+import { useFilterContext } from "../Context/FilteredContext";
+
 const CategoryFilter = () => {
-  const categories = ["all", "chairs", "tables", "sofas", "lamps"];
+  const { filters, updateFilters } = useFilterContext();
 
   return (
-    <div>
-      <h3 className="text-lg font-semibold mb-2">Category</h3>
-
-      <div className="flex flex-col gap-2">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            className="btn btn-outline btn-sm capitalize"
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-    </div>
+    <select
+      name="category"
+      value={filters.categry}
+      onChange={(e) => updateFilters(CategoryFilter, e.target.value)}
+      className="category-select"
+    >
+      <option value="all">All</option>
+      <option value="chairs">Chairs</option>
+      <option value="tables">Tables</option>
+      <option value="sofas">Sofas</option>
+      <option value="lamps">Lamps</option>
+    </select>
   );
 };
 

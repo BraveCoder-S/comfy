@@ -3,7 +3,7 @@ import { products } from "../../data/products";
 
 const FilterContext = createContext();
 
-export function FilterProvider({ childern }) {
+export function FilterProvider({ children }) {
   const [filteredProducts, setfilteredProducts] = useState(products);
   const [filters, setFilters] = useState({
     search: "",
@@ -21,19 +21,19 @@ export function FilterProvider({ childern }) {
 
     if (filters.search) {
       tempProducts = tempProducts.filter((product) => {
-        product.name.toLowerCase.includes(filters.search.toLowerCase());
+        return product.name.toLowerCase().includes(filters.search.toLowerCase());
       });
     }
 
     if (filters.category !== "all") {
       tempProducts = tempProducts.filter((product) => {
-        product.category === filters.category;
+        return product.category === filters.category;
       });
     }
 
     if (filters.company !== "all") {
       tempProducts = tempProducts.filter((product) => {
-        product.company === filters.company;
+        return product.company === filters.company;
       });
     }
 
@@ -41,12 +41,14 @@ export function FilterProvider({ childern }) {
       (product) => product.price <= filters.price,
     );
 
-    if (filters.shipping) {
-      tempProducts = tempProducts.filter(
-        (product) => product.shipping === true,
-      );
+   
+    if(filters.shipping){
+      tempProducts = tempProducts.fillter((product)=>{
+        return product.shipping===true
+      })
     }
 
+  
     setfilteredProducts(tempProducts);
   }, [filters]);
 
