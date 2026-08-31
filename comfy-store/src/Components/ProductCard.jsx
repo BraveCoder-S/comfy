@@ -4,7 +4,7 @@ export default function ProductCard({ item }) {
   const { id, title, description, price, image } = item;
 
   return (
-    <div class="bg-base-100 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-5">
+    <div className="bg-base-100 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-5">
       <img
         src={image}
         alt={title}

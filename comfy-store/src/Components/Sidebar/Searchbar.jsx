@@ -1,8 +1,8 @@
 import { FilterProvider, useFilterContext } from "../Context/FilteredContext";
 
-const { filters, updateFilters } = useFilterContext();
-
 const SearchBar = () => {
+  const { filters, updateFilters } = useFilterContext();
+
   return (
     <div>
       <h3 className="text-lg font-semibold mb-2">Search</h3>
@@ -18,4 +18,3 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
-

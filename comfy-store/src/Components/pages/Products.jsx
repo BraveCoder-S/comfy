@@ -8,12 +8,14 @@ export default function Products() {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-10">Our Products</h1>
 
-        <div className="flex gap-10">
+        <div className="flex flex-col md:flex-row gap-10">
           {/* LEFT: Sidebar */}
-          <FiltersSidebar />
+          <div className="w-full md:w-64">
+            <FiltersSidebar />
+          </div>
 
           {/* RIGHT: Products Grid */}
-          <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 items-start">
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((item) => (
               <ProductCard key={item.id} item={item} />
             ))}

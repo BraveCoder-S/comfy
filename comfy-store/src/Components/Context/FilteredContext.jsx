@@ -11,6 +11,7 @@ export function FilterProvider({ children }) {
     company: "all",
     price: 0,
     shipping: false,
+    sort: "price-lowest",
   });
   function updateFilters(name, value) {
     setFilters({ ...filters, [name]: value });
@@ -19,11 +20,17 @@ export function FilterProvider({ children }) {
   useEffect(() => {
     let tempProducts = [...products];
 
+    // 1. SEARCH FILTER
+
     if (filters.search) {
       tempProducts = tempProducts.filter((product) => {
-        return product.name.toLowerCase().includes(filters.search.toLowerCase());
+        return product.name
+          ?.toLowerCase()
+          .includes(filters.search.toLowerCase());
       });
     }
+
+    // 2. CATEGORY FILTER
 
     if (filters.category !== "all") {
       tempProducts = tempProducts.filter((product) => {
@@ -31,24 +38,50 @@ export function FilterProvider({ children }) {
       });
     }
 
+    // 3. COMPANY FILTER
+
     if (filters.company !== "all") {
       tempProducts = tempProducts.filter((product) => {
         return product.company === filters.company;
       });
     }
 
+    // 4. PRICE FILTER
+
     tempProducts = tempProducts.filter(
       (product) => product.price <= filters.price,
     );
 
-   
-    if(filters.shipping){
-      tempProducts = tempProducts.fillter((product)=>{
-        return product.shipping===true
-      })
+    // 5. SHIPPING FILTER
+    if (filters.shipping) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.shipping === true;
+      });
     }
 
-  
+    // 6. SORT FILTER
+    switch (filters.sort) {
+      case "price-lowest":
+        tempProducts = tempProducts.filter((a, b) => a.price - b.price);
+        break;
+
+      case "price-highest":
+        tempProducts = tempProducts.filter((a, b) => b.price - a.price);
+        break;
+
+      case "name-a":
+        tempProducts = tempProducts.filter((a, b) =>
+          a.name.localeCompare(b.name),
+        );
+        break;
+
+      case "name-b":
+        tempProducts = tempProducts.filter((a, b) =>
+          b.name.localeCompare(a.name),
+        );
+        break;
+    }
+
     setfilteredProducts(tempProducts);
   }, [filters]);
 
