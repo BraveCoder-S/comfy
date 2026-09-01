@@ -9,7 +9,7 @@ export function FilterProvider({ children }) {
     search: "",
     category: "all",
     company: "all",
-    price: 0,
+    price: Math.max(...products.map((p) => p.price)),
     shipping: false,
     sort: "price-lowest",
   });
@@ -24,7 +24,7 @@ export function FilterProvider({ children }) {
 
     if (filters.search) {
       tempProducts = tempProducts.filter((product) => {
-        return product.name
+        return product.title
           ?.toLowerCase()
           .includes(filters.search.toLowerCase());
       });
@@ -62,22 +62,22 @@ export function FilterProvider({ children }) {
     // 6. SORT FILTER
     switch (filters.sort) {
       case "price-lowest":
-        tempProducts = tempProducts.filter((a, b) => a.price - b.price);
+        tempProducts = tempProducts.sort((a, b) => a.price - b.price);
         break;
 
       case "price-highest":
-        tempProducts = tempProducts.filter((a, b) => b.price - a.price);
+        tempProducts = tempProducts.sort((a, b) => b.price - a.price);
         break;
 
       case "name-a":
-        tempProducts = tempProducts.filter((a, b) =>
-          a.name.localeCompare(b.name),
+        tempProducts = tempProducts.sort((a, b) =>
+          a.title.localeCompare(b.title),
         );
         break;
 
       case "name-b":
-        tempProducts = tempProducts.filter((a, b) =>
-          b.name.localeCompare(a.name),
+        tempProducts = tempProducts.sort((a, b) =>
+          b.title.localeCompare(a.title),
         );
         break;
     }

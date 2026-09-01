@@ -4,8 +4,6 @@ const CompanyFilter = () => {
   const companies = ["all", "marcos", "liddy", "ikea", "caressa"];
   const { filters, updateFilters } = useFilterContext();
 
-  console.log(companies);
-
   return (
     <div>
       <h3 className="text-lg font-semibold mb-2">Company</h3>

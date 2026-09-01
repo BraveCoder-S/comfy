@@ -6,8 +6,8 @@ const CategoryFilter = () => {
   return (
     <select
       name="category"
-      value={filters.categry}
-      onChange={(e) => updateFilters(CategoryFilter, e.target.value)}
+      value={filters.category}
+      onChange={(e) => updateFilters("category", e.target.value)}
       className="category-select"
     >
       <option value="all">All</option>
