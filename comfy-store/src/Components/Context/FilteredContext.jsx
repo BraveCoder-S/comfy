@@ -13,21 +13,30 @@ export function FilterProvider({ children }) {
     shipping: false,
     sort: "price-lowest",
   });
+  const [debounce, setDebounce] = useState(filters.search);
+
   function updateFilters(name, value) {
     setFilters({ ...filters, [name]: value });
   }
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebounce(filters.search);
+
+      return () => clearTimeout(handler);
+    }, 300);
+  }, [filters.search]);
 
   useEffect(() => {
     let tempProducts = [...products];
 
     // 1. SEARCH FILTER
 
-    if (filters.search) {
-      tempProducts = tempProducts.filter((product) => {
-        return product.title
-          ?.toLowerCase()
-          .includes(filters.search.toLowerCase());
-      });
+    // SEARCH FILTER
+    if (debounce.trim() !== "") {
+      tempProducts = tempProducts.filter((product) =>
+        product.title?.toLowerCase().includes(debounce.toLowerCase()),
+      );
     }
 
     // 2. CATEGORY FILTER
