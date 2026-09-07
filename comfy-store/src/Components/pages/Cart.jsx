@@ -1,4 +1,5 @@
 import { useCart } from "../Context/CartContext";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const {
@@ -24,6 +25,7 @@ export default function Cart() {
           <p className="text-md font-semibold">
             Subtotal: ${item.price * item.quantity}
           </p>
+
           <div className="flex items-center gap-4 mt-3 mb-4">
             <button
               onClick={() => decreaseQuantity(item.cartId)}
@@ -51,15 +53,28 @@ export default function Cart() {
       ))}
       <>
         <h2 className="text-xl font-bold mt-6">Total: ₹{total}</h2>
+        <Link to="/products" className="btn btn-outline btn-primary mt-5">
+          ← Continue Shopping
+        </Link>
+
         {cart.length > 0 && (
-          <button
-            className="btn btn-warning mt-6"
-            onClick={() =>
-              document.getElementById("clearCartModal").showModal()
-            }
-          >
-            Clear Cart
-          </button>
+          <>
+            {" "}
+            <Link
+              to="/checkout"
+              className="btn btn-warning w-full text-lg mt-4"
+            >
+              Proceed to Checkout
+            </Link>
+            <button
+              className="btn btn-warning mt-6"
+              onClick={() =>
+                document.getElementById("clearCartModal").showModal()
+              }
+            >
+              Clear Cart
+            </button>
+          </>
         )}
       </>
 

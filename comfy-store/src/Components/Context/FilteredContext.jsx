@@ -14,9 +14,18 @@ export function FilterProvider({ children }) {
     sort: "price-lowest",
   });
   const [debounce, setDebounce] = useState(filters.search);
+  // ⭐ VIEW TOGGLE STATE
+  const [gridView, setGridView] = useState(true);
 
   function updateFilters(name, value) {
     setFilters({ ...filters, [name]: value });
+  }
+  function setGrid() {
+    setGridView(true);
+  }
+
+  function setList() {
+    setGridView(false);
   }
 
   useEffect(() => {
@@ -96,7 +105,16 @@ export function FilterProvider({ children }) {
 
   return (
     <FilterContext.Provider
-      value={{ filteredProducts, filters, updateFilters }}
+      value={{
+        products,
+        filteredProducts,
+        filters,
+        updateFilters,
+        debounce,
+        gridView,
+        setGrid,
+        setList,
+      }}
     >
       {children}
     </FilterContext.Provider>
