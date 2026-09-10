@@ -8,11 +8,27 @@ export default function OrderSuccess() {
   const total = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   useEffect(() => {
-    setorderItems(cart);
-    setTimeout(() => {
-      clearCart();
-    }, 500); // 500ms delay
-  }, []); // run only once
+  // 1️⃣ Freeze the cart items
+  setOrderedItems(cart);
+
+  // 2️⃣ Create an order object
+  const order = {
+    id: Date.now(),
+    items: cart,
+    total,
+    date: new Date().toLocaleString(),
+  };
+
+  // 3️⃣ Save to localStorage
+  const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+  existingOrders.push(order);
+  localStorage.setItem("orders", JSON.stringify(existingOrders));
+
+  // 4️⃣ Clear cart after delay
+  setTimeout(() => {
+    clearCart();
+  }, 500);
+}, []);
 
   return (
     <main className="min-h-screen bg-base-200 p-10 flex flex-col items-center">
